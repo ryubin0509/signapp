@@ -93,11 +93,29 @@
 
 <script type="text/javascript">
 $(document).ready(function (){
+	$('#checkIdBtn').click(function(){
+		$.ajax({
+			asyn : true //  비동기요청
+		   , url : '/checkId'
+		   , type : 'get'
+		   , data : {
+			   id: $('#id').text()
+			   
+			   
+		   }
+		}).done(function(){
+		$('#checkIdBtn').text('Id 사용가능합니다.');  
+		}).fail(function(){
+			$('#checkIdBtn').text('Id 중복으로 사용불가합니다..'); 	
+		});
+		
+		
+	})
+	
 
 
 
-
-}
+});
 </script>
 </head>
 <body>

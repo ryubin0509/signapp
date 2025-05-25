@@ -92,27 +92,75 @@
 </style>
 
 <script type="text/javascript">
+let idCheckPassed = false;
+
 $(document).ready(function (){
 	$('#checkIdBtn').click(function(){
+		const idValue = $('#id').val().trim(); 
+		
+		if(idValue.length > 4){
 		$.ajax({
 			asyn : true //  비동기요청
 		   , url : '/checkId'
 		   , type : 'get'
 		   , data : {
-			   id: $('#id').text()
+			   id: idValue
 			   
 			   
 		   }
 		}).done(function(){
-		$('#checkIdBtn').text('Id 사용가능합니다.');  
+		$('#idCheckResult').text('Id 사용가능합니다.');  
+		idCheckPassed = true;
 		}).fail(function(){
-			$('#checkIdBtn').text('Id 중복으로 사용불가합니다..'); 	
+			$('#idCheckResult').text('Id 중복으로 사용불가합니다..'); 
+		idCheckPassed = false; // 아이디체크 미승인
 		});
+		} else{
+			$('#idCheckResult').text('아이디는 5자 이상이여야 합니다.');
+		idCheckPassed = false; // 아이디체크 미승인 
+		}	
 		
-		
-	})
-	
+	});
 
+	$('#submitBtn').click(function(){
+		
+		
+		if (!idCheckPassed){
+			alert("ID 중복 확인을 통과해야 합니다.");
+			return;
+		}
+		
+		
+			 const id = $('#id').val().trim();    
+			 const password = $('#password').val().trim();  
+			 const name =  $('#name').val().trim();
+			 const level = $('input[name="level"]:checked').val();
+		// formData 에 넘길 데이터 저장
+		
+		if(!id || !password || !name || !level){
+			alert("모든 항목을 입력해 주세요.");
+			return;
+		}
+		
+		$.ajax({
+			
+			url: '/register',
+			type: 'post',
+			data: {id: id, 
+			 	   password: password,
+			 	   name: name,
+			 	   level: level 
+			}
+		})
+		.done(function (res){
+			alert('회원가입 성공');
+			location.href = '/login';
+		})
+		.fail(function (){
+			alert('회원가입 실패:');
+			return; 
+		})
+	})
 
 
 });
@@ -121,7 +169,7 @@ $(document).ready(function (){
 <body>
   <div class="signup-container">
     <h2>회원가입</h2>
-    <form action="/register" method="post">
+	<form method="post" id="register" >
       <div class="form-group">
         <label for="id">ID</label>
         <div class="id-check-container">
@@ -150,7 +198,7 @@ $(document).ready(function (){
         </div>
       </div>
 
-      <button type="submit" class="submit-btn">회원가입</button>
+      <button type="button" id="submitBtn" class="submit-btn">회원가입</button>
     </form>
   </div>
 </body>

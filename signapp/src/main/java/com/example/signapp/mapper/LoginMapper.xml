@@ -5,5 +5,8 @@
 		SELECT COUNT(*) FROM employee WHERE id = #{id};
 	
 	</select>
-
+	
+	<insert id="insertId" parameterType="com.example.signapp.dto.Employee">
+		INSERT INTO employee (id,password,name,level) VALUES (#{id},#{password},#{name},#{level});
+	</insert>
 </mapper>

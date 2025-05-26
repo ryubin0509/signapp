@@ -16,12 +16,16 @@ public class LoginService {
 	@Autowired LoginMapper loginMapper;
 	
 	public int checkId(String id) {
-		return loginMapper.checkId(id);
+		return loginMapper.checkId(id);  //  id 유효성 체크
 		
 	}
 	
 	public void insertId(Employee employee) {
-		loginMapper.insertId(employee);
+		loginMapper.insertId(employee); // 회원정보 생성
+	}
+	
+	public Employee loginInformation(Employee employee) {
+		return loginMapper.loginInformation(employee); 
 	}
 	
 }

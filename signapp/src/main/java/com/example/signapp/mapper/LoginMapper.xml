@@ -9,4 +9,8 @@
 	<insert id="insertId" parameterType="com.example.signapp.dto.Employee">
 		INSERT INTO employee (id,password,name,level) VALUES (#{id},#{password},#{name},#{level});
 	</insert>
+	
+	<select id="loginInformation" parameterType="com.example.signapp.dto.Employee" resultType="com.example.signapp.dto.Employee">
+		SELECT id, name, level  FROM employee  where id  = #{id}  and password = #{password}; 
+	</select>
 </mapper>

@@ -1,4 +1,4 @@
-package com.example.signapp.controller;
+ 	package com.example.signapp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

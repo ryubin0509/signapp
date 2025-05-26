@@ -108,17 +108,23 @@ $(document).ready(function (){
 			   
 			   
 		   }
-		}).done(function(){
-		$('#idCheckResult').text('Id 사용가능합니다.');  
-		idCheckPassed = true;
-		}).fail(function(){
-			$('#idCheckResult').text('Id 중복으로 사용불가합니다..'); 
-		idCheckPassed = false; // 아이디체크 미승인
-		});
-		} else{
-			$('#idCheckResult').text('아이디는 5자 이상이여야 합니다.');
-		idCheckPassed = false; // 아이디체크 미승인 
-		}	
+		}).done(function (res) {
+	        // ✅ 서버에서 받은 JSON 응답(res)에서 status 체크
+	        if (res.status === 'success') {
+	          $('#idCheckResult').text(res.message);
+	          idCheckPassed = true;
+	        } else {
+	          $('#idCheckResult').text(res.message);
+	          idCheckPassed = false;
+	        }
+	      }).fail(function () {
+	        $('#idCheckResult').text('서버 오류로 중복 확인 실패');
+	        idCheckPassed = false;
+	      });
+	    } else {
+	      $('#idCheckResult').text('아이디는 5자 이상이어야 합니다.');
+	      idCheckPassed = false;
+	    }
 		
 	});
 
@@ -144,7 +150,7 @@ $(document).ready(function (){
 		
 		$.ajax({
 			
-			url: '/register',
+			url:'/register',
 			type: 'post',
 			data: {id: id, 
 			 	   password: password,

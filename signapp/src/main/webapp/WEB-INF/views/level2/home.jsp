@@ -3,75 +3,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Level 2 홈</title>
-<style>
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f2f5;
-    margin: 0;
-    padding: 0;
-  }
+  <meta charset="UTF-8">
+  <title>Level 2 홈</title>
 
-  .header {
-    background-color: #3478f6;
-    color: white;
-    padding: 20px;
-    text-align: center;
-  }
-
-  .container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 30px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    text-align: center;
-  }
-
-  .username {
-    font-size: 20px;
-    margin-bottom: 15px;
-  }
-
-  .role-label {
-    color: gray;
-    font-size: 14px;
-    margin-bottom: 30px;
-  }
-
-  .logout-btn {
-    padding: 10px 20px;
-    background-color: #ff5555;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-
-  .logout-btn:hover {
-    background-color: #cc4444;
-  }
-</style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 
-<div class="header">
-  <h1>레벨 2 사용자 홈</h1>
+<!-- ✅ 상단 네비게이션 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <span class="navbar-brand">레벨 2 사용자 홈</span>
+    <div class="collapse navbar-collapse justify-content-end">
+      <ul class="navbar-nav">
+        <!-- 🔗 문서 목록 보기 -->
+        <li class="nav-item">
+          <a class="nav-link" href="/level2/board/boardList">📂 문서 목록</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-danger" href="/logout">로그아웃</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ✅ 본문 -->
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-body text-center">
+      <h4 class="card-title">안녕하세요, <strong>${sessionScope.loginUser.name}</strong> 님!</h4>
+      <p class="card-text text-muted">
+        (과장 계정 - ${sessionScope.loginUser.level})
+      </p>
+    </div>
+  </div>
 </div>
 
-<div class="container">
-  <div class="username">
-    안녕하세요, <strong>${sessionScope.loginUser.name}</strong> 님!
-  </div>
-  <div class="role-label">
-    (사원 계정 - ${sessionScope.loginUser.level})
-  </div>
-
-  <button class="logout-btn" onclick="location.href='/logout'">로그아웃</button>
-</div>
-
+<!-- ✅ Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

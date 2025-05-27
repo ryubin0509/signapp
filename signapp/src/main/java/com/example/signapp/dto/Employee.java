@@ -8,6 +8,6 @@ public class Employee {
 	private String id;
 	private String password;
 	private String name;
-	private int level;
+	private Integer level;
 	private String createdate;
 }

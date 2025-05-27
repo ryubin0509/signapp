@@ -33,10 +33,11 @@ public class Level2 extends HttpFilter implements Filter {
 			HttpSession session = req.getSession();
 			Employee loginUser = (Employee) session.getAttribute("loginUser");
 			
-			if(loginUser == null) {
-				res.sendRedirect("/login");
-				return;
-			} 
+		       // ✅ 로그인 안 되어 있거나 정보가 불완전한 경우 → 로그인 페이지로
+            if (loginUser == null || loginUser.getName() == null || loginUser.getLevel() == null) {
+                res.sendRedirect("/login");
+                return;
+            }
 			
 			int level = loginUser.getLevel();
 			

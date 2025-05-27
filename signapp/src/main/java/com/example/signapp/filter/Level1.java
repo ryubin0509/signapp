@@ -31,7 +31,7 @@ public class Level1 extends HttpFilter implements Filter {
 
             Employee loginUser = (Employee) session.getAttribute("loginUser");
 
-            if (loginUser == null) {
+            if (loginUser == null || loginUser.getName() == null || loginUser.getLevel() == null) {
                 res.sendRedirect("/login");
                 return;
             }

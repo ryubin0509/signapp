@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.signapp.mapper.BoardMapper">
+	<insert id="insertDocument" parameterType="map">
+		INSERT INTO document (title,content,uploader_id) VALUES (#{doc.title}, #{doc.content}, #{emp.id});
+	
+	</insert>
+
+	<select id="countDocument" resultType="int">
+		SELECT COUNT(*) FROM document;
+	</select>
+	
+	<select id="getDocumentsByPage" resultType="com.example.signapp.dto.Document">
+		SELECT
+			d.document_id documentId,
+			d.title title,
+			d.content content,
+			d.uploaded_time uploadedTime,
+			e.name AS uploaderName
+		FROM 
+			document d
+		JOIN
+			employee e  ON d.uploader_id = e.id
+		ORDER BY 
+			d.document_id DESC
+			LIMIT #{rowPerPage} offset #{startRow};
+	</select>
+	
+	<select id="getBoardOne" resultType="com.example.signapp.dto.Document" parameterType="int">
+			SELECT
+			d.document_id documentId,
+			d.title title,
+			d.content content,
+			d.uploaded_time uploadedTime,
+			d.uploader_id uploaderId,
+			e.name AS uploaderName
+		FROM 
+			document d
+		JOIN
+			employee e  ON d.uploader_id = e.id
+			WHERE d.document_id = #{documentId};
+	
+	</select>
+	
+	<update id="updateOne" parameterType="com.example.signapp.dto.Document">
+	UPDATE document SET title = #{title}, content = #{content} WHERE document_id = #{documentId};
+	</update>
+	
+	<delete id="deleteOne" parameterType="int">
+	DELETE FROM document WHERE document_id = #{id}; 
+	</delete>
+</mapper>

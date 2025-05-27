@@ -10,12 +10,16 @@
 </head>
 <body class="bg-light">
 
-
+<!-- ✅ 상단 네비게이션 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
     <span class="navbar-brand">레벨 1 사용자 홈</span>
     <div class="collapse navbar-collapse justify-content-end">
       <ul class="navbar-nav">
+        <!-- 🔗 문서 목록 보기 -->
+        <li class="nav-item">
+          <a class="nav-link" href="/level1/board/boardList">📂 문서 목록</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="/level1/write">문서 작성</a>
         </li>
@@ -27,7 +31,7 @@
   </div>
 </nav>
 
-
+<!-- ✅ 본문 -->
 <div class="container mt-5">
   <div class="card shadow-sm">
     <div class="card-body text-center">
@@ -39,7 +43,7 @@
   </div>
 </div>
 
-<!-- ✅ Bootstrap JS (선택 사항) -->
+<!-- ✅ Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

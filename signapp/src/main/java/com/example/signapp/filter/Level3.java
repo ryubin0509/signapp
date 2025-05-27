@@ -33,10 +33,10 @@ public class Level3 extends HttpFilter implements Filter {
 			HttpSession session = req.getSession();
 			Employee loginUser = (Employee) session.getAttribute("loginUser");
 			
-			if(loginUser == null) {
-				res.sendRedirect("/login");
-				return;
-			} 
+	      if (loginUser == null || loginUser.getName() == null || loginUser.getLevel() == null) {
+	                res.sendRedirect("/login");
+	                return;
+            }
 			
 			int level = loginUser.getLevel();
 			

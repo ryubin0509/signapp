@@ -34,13 +34,16 @@
 			   , url : '/addSign'
 			   , type : 'post'
 			   , data : {
-				   id: $('#id').text() 
+				   	 signerId: $('#id').val()
+				   , documentId : $('#documentId').val() 
+				   , signOrder : $('#signOrder').val() 
 				   , signImg: signaturePad.toDataURL() // signaturePad.toDataURL("image/jpeg"); 안수 생략시 기본값은 png 이미지
 			  } // 로그인 사용자 id와 signaturePad 객체안의 사인 이미지
 			  
 			}).done(function(){
 				alert('결제 완료'); // data = 결제완료
 				// 사인을 초기화... signaturePad
+				location.href = "/level2/board/boardOne?id="+$('#documentId').val();
 				// js로 페이지 이동 location.href='이동할페이지'
 			}).fail(function(){
 				alert('결제실패')
@@ -52,7 +55,9 @@
 </head>
 <body>
 	<!--  id : 사인 레벨이 되는 로그인 사용자 id -->
-	<div id="id">manager</div>  <!-- input id = "id" type="text" value="manager"> -->
+	<input id="id" type="hidden" value="${employeeId}">
+	<input id="documentId" type="hidden" value="${documentId}">
+	<input id="signOrder" type="hidden" value="${signOrder}">
 	<canvas style="border: 1px solid #FF0000";"></canvas>
 	<button type="button" id="btnClear">clear</button>
 	<button type="button" id="btnSign">sign</button>

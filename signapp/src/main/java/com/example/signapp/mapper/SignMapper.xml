@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.signapp.mapper.SignMapper">
+<insert id="insertSign" parameterType="com.example.signapp.dto.SignForm">
+	INSERT INTO sign (document_id,signer_id,sign_order,signature_path) VALUES (#{documentId}, #{signerId}, #{signOrder}, #{signaturePath}); 
+
+</insert>
+
+<select id="getBoardSignById" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM sign WHERE document_id = #{documentId} AND sign_order = 2;
+
+</select>
+	
+<select id="getBoardSign" parameterType="int" resultType="String">
+	SELECT signature_path signaturePath FROM sign WHERE document_id = #{documentId} AND sign_order = 2; 
+</select>
+
+<select id="getBoardSignCountLevel3ById" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM sign WHERE document_id = #{documentId} AND sign_order = 3;
+</select>
+
+<select id="getBoardSignLevel3" parameterType="int" resultType="String">
+	SELECT signature_path signaturePath FROM sign WHERE document_id = #{documentId} AND sign_order = 3; 
+</select>
+
+</mapper>
+

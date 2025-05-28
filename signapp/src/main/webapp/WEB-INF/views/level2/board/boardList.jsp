@@ -104,7 +104,7 @@
       <c:forEach var="doc" items="${docList}">
         <tr>
           <td>${doc.documentId}</td>
-          <td><a href="/level1/board/view?id=${doc.documentId}">${doc.title}</a></td>
+          <td><a href="/level2/board/boardOne?id=${doc.documentId}">${doc.title}</a></td>
           <td>${doc.uploaderName}</td>
  		  <td>${fn:substring(doc.uploadedTime,0,16)}</td>
         </tr>
@@ -116,13 +116,13 @@
   <!-- ✅ 페이징 영역 -->
   <div class="pagination">
     <c:if test="${page.currentPage > 1}">
-      <a href="/level1/board/boardList?currentPage=${page.currentPage - 1}">이전</a>
+      <a href="/level2/board/boardList?currentPage=${page.currentPage - 1}">이전</a>
     </c:if>
 
     <span class="current">${page.currentPage}</span>
 
     <c:if test="${page.currentPage < page.lastPage}">
-      <a href="/level1/board/boardList?currentPage=${page.currentPage + 1}">다음</a>
+      <a href="/level2/board/boardList?currentPage=${page.currentPage + 1}">다음</a>
     </c:if>
   </div>
 </div>

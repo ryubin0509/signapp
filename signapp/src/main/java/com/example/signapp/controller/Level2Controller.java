@@ -12,12 +12,16 @@ import com.example.signapp.dto.Document;
 import com.example.signapp.dto.Employee;
 import com.example.signapp.dto.Page;
 import com.example.signapp.service.BoardService;
+import com.example.signapp.service.SignService;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class Level2Controller {
 	@Autowired BoardService boardService;
+	@Autowired SignService signService;
 	
 	@GetMapping("/level2/home")
 	public String level2Home(HttpSession session, Model model) { 
@@ -41,11 +45,40 @@ public class Level2Controller {
 		int startRow = (p.getCurrentPage() -1) * p.getRowPerPage();
 		List<Document> docList = boardService.getDocumentsByPage(startRow, p.getRowPerPage());
 		
+		loginUser.getId();
 		model.addAttribute("page", p);
 		model.addAttribute("docList", docList);
 		model.addAttribute("loginUser", loginUser);
-				
+		
 		return "level2/board/boardList";
 	}
 	
+	@GetMapping("/level2/board/boardOne") // 게시판 상세보기
+	public String boardOne(HttpSession session, Model model, @RequestParam("id")int documentId	) {
+		Employee loginUser = (Employee) session.getAttribute("loginUser");
+		Document doc = boardService.getBoardOne(documentId);
+		
+		int signL2 = signService.getBoardSignCount(documentId);
+		if(signL2 == 1) {
+			String file = signService.getBoardSign(documentId);
+			model.addAttribute("file", file);
+		}
+		
+		int signL3 = signService.getBoardSignCountLevel3(documentId);
+		if(signL3 == 1) {
+			String file2 = signService.getBoardSignLevel3(documentId);
+			model.addAttribute("file2", file2);
+			
+		} 
+		
+		
+		
+		model.addAttribute("doc", doc);
+		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("signL2", signL2);
+		model.addAttribute("signL3", signL3);
+		log.info("signL2값"+signL2 + "signL3값"+signL3 +"loginUser값"+loginUser.getLevel());
+		return "/level2/board/boardOne";
+		
+	}
 }

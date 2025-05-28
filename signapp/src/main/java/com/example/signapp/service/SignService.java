@@ -6,10 +6,12 @@ import java.io.IOException;
 import java.util.UUID;
 import java.util.Base64;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.signapp.dto.SignForm;
+import com.example.signapp.mapper.SignMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,7 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @Service
 public class SignService {
-
+	@Autowired SignMapper signMapper;
+	
 	public boolean addSign(SignForm signForm) {
 		// 0) signImg 파일이름을 생성
 		String ext = ".png"; // data:image/png;Base64,xxxxxx....
@@ -33,7 +36,9 @@ public class SignService {
 			String signImg1 = signForm.getSignImg().split(",")[1];
 			fos.write(Base64.getDecoder().decode(signImg1));
 			
+			signForm.setSignaturePath(filename);
 			
+			 signMapper.insertSign(signForm);
 			
 		} catch (FileNotFoundException e1) {
 			log.error("파일생성 실패 @Transactional 록백");
@@ -51,6 +56,26 @@ public class SignService {
 		}
 		 
 		return true;
+	}
+
+	public int getBoardSignCount(int documentId) {  // 레벨 2 사인이미지 있는지 확인
+		
+		return signMapper.getBoardSignById(documentId);
+		
+	}
+
+	public int getBoardSignCountLevel3(int documentId) { // 레벨 3 사인이미지 있는지 확인
+		
+		return signMapper.getBoardSignCountLevel3ById(documentId);
+	}
+	
+	public String getBoardSign(int documentId) {  // 레벨 2 사인이미지 불러오기
+		return signMapper.getBoardSign(documentId);
+		
+	}
+
+	public String getBoardSignLevel3(int documentId) {
+		return signMapper.getBoardSignLevel3(documentId);
 	}
 
 }

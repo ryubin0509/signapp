@@ -153,7 +153,7 @@
   </div>
 
 
-<a href="/level1/board/boardList"
+<a href="/level3/board/boardList"
    class="btn btn-outline-secondary btn-sm"
    style="font-size: 14px; padding: 4px 10px;">
   ← 목록

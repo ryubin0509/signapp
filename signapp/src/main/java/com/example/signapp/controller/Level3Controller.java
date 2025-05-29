@@ -1,6 +1,8 @@
 package com.example.signapp.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,10 +47,19 @@ public class Level3Controller {
 		int startRow = (p.getCurrentPage() -1) * p.getRowPerPage();
 		List<Document> docList = boardService.getDocumentsByPage(startRow, p.getRowPerPage());
 		
+		Map<Integer, Integer> signCountMap = new HashMap<>();
+		
+		for(Document doc : docList) {
+			int count = signService.getSignCountByDocumentId(doc.getDocumentId());
+			signCountMap.put(doc.getDocumentId(), count);
+		}
+		
+		
 		model.addAttribute("page", p);
 		model.addAttribute("docList", docList);
 		model.addAttribute("loginUser", loginUser);
-				
+		model.addAttribute("signCountMap", signCountMap);
+		
 		return "level3/board/boardList";
 	}
 	

@@ -94,7 +94,7 @@
       </div>
     </c:when>
     <c:otherwise>
-    <div>&nbsp;</div>
+    <div>과장</div>
     </c:otherwise>
     </c:choose>
  

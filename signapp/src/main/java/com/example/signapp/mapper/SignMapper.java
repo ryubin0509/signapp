@@ -17,4 +17,6 @@ public interface SignMapper {
 
 	String getBoardSignLevel3(int documentId); // 레벨3 이미지 파일 가져옴
 
+	int getSignCountByDocumentId(int documentId); // 결제상태 확인 카운트 
+
 }

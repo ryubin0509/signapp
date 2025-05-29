@@ -74,8 +74,13 @@ public class SignService {
 		
 	}
 
-	public String getBoardSignLevel3(int documentId) {
+	public String getBoardSignLevel3(int documentId) { // 레벨 3 이미지 불러오기 
 		return signMapper.getBoardSignLevel3(documentId);
+	}
+
+	public int getSignCountByDocumentId(int documentId) { // 결제 상태 보여주기
+		return signMapper.getSignCountByDocumentId(documentId);
+		
 	}
 
 }

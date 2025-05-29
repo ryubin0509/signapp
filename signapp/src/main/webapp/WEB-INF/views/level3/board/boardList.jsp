@@ -89,6 +89,13 @@
 <body>
 
 <div class="board-container">
+  
+  <div style="background-color: #ffffff; padding: 15px 30px; border-bottom: 1px solid #ddd; display: flex; justify-content: flex-end; gap: 20px; font-size: 15px;">
+  <a href="/level3/home" style="text-decoration: none; color: #3478f6; font-weight: bold;">🏠 홈</a>
+  <a href="/logout" style="text-decoration: none; color: #dc3545; font-weight: bold;">🚪 로그아웃</a>
+  </div>
+  
+  
   <h2>📋 게시판</h2>
 
   <table>
@@ -98,6 +105,7 @@
         <th>제목</th>
         <th>작성자</th>
 		<th>작성일</th>
+		<th>결제상태</th>
       </tr>
     </thead>
     <tbody>
@@ -107,6 +115,14 @@
           <td><a href="/level3/board/boardOne?id=${doc.documentId}">${doc.title}</a></td>
           <td>${doc.uploaderName}</td>
  		  <td>${fn:substring(doc.uploadedTime,0,16)}</td>
+ 		  <td>
+ 		  <c:choose>
+ 		  <c:when test="${signCountMap[doc.documentId]>1}">  ✅ 완료 </c:when>
+ 		  <c:when test="${signCOuntMap[doc.documentId]>0}">  🔄 진행중</c:when>
+ 		  <c:otherwise>  ⏳ 대기 </c:otherwise>
+ 		  </c:choose>
+ 		  </td>
+ 		 
         </tr>
       </c:forEach>
     </tbody>

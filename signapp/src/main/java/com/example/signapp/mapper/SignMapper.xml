@@ -23,5 +23,9 @@
 	SELECT signature_path signaturePath FROM sign WHERE document_id = #{documentId} AND sign_order = 3; 
 </select>
 
+<select id="getSignCountByDocumentId" parameterType="int" resultType="int">
+	SELECT COUNT(*) sign_order FROM sign  WHERE document_id = #{documentId}; 
+</select>
+
 </mapper>
 

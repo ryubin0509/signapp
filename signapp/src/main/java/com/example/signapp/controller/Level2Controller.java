@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.signapp.dto.Document;
 import com.example.signapp.dto.Employee;
 import com.example.signapp.dto.Page;
+import com.example.signapp.dto.SignForm;
 import com.example.signapp.service.BoardService;
 import com.example.signapp.service.SignService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Slf4j
 @Controller
@@ -50,7 +54,9 @@ public class Level2Controller {
 		Map<Integer, Integer> signCountMap = new HashMap<>();
 		
 		for(Document doc : docList) {
-			int count = signService.getSignCountByDocumentId(doc.getDocumentId());
+			
+			
+			int count = signService.getSignCountByDocumentId(doc) ;
 			signCountMap.put(doc.getDocumentId(), count);
 		}
 		
@@ -91,4 +97,14 @@ public class Level2Controller {
 		return "/level2/board/boardOne";
 		
 	}
+	
+	@PostMapping("/sign/level2/reject")
+	public String rejectSign(SignForm signForm) 
+	{
+	
+		signService.insertRejectSign(signForm);
+		boardService.updateStatus(signForm);
+		return "redirect:/level2/board/boardList";
+	}
+	
 }

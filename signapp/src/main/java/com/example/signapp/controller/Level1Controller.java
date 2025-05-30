@@ -72,7 +72,7 @@ public class Level1Controller {
 		Map<Integer, Integer> signCountMap = new HashMap<>();
 		
 		for(Document doc : docList) {
-			int count = signService.getSignCountByDocumentId(doc.getDocumentId());
+			int count = signService.getSignCountByDocumentId(doc);
 			signCountMap.put(doc.getDocumentId(), count);
 		}
 		

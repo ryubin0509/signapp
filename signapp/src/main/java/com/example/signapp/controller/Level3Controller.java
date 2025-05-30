@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.signapp.dto.Document;
 import com.example.signapp.dto.Employee;
 import com.example.signapp.dto.Page;
+import com.example.signapp.dto.SignForm;
 import com.example.signapp.service.BoardService;
 import com.example.signapp.service.SignService;
 
@@ -50,7 +52,7 @@ public class Level3Controller {
 		Map<Integer, Integer> signCountMap = new HashMap<>();
 		
 		for(Document doc : docList) {
-			int count = signService.getSignCountByDocumentId(doc.getDocumentId());
+			int count = signService.getSignCountByDocumentId(doc);
 			signCountMap.put(doc.getDocumentId(), count);
 		}
 		
@@ -92,4 +94,14 @@ public class Level3Controller {
 		return "/level3/board/boardOne";
 		
 	}
+	
+	@PostMapping("/sign/level3/reject")
+	public String rejectSign(SignForm signForm) 
+	{
+	
+		signService.insertRejectSign(signForm);
+		boardService.updateStatus(signForm);
+		return "redirect:/level3/board/boardList";
+	}
+	
 }

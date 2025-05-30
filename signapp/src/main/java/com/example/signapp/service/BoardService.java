@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.signapp.dto.Document;
 import com.example.signapp.dto.Employee;
+import com.example.signapp.dto.SignForm;
 import com.example.signapp.mapper.BoardMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,11 @@ public class BoardService {
 
 	public int deleteOne(int id) {
 		return boardMapper.deleteOne(id);
+		
+	}
+
+	public void updateStatus(SignForm signForm) {
+		 boardMapper.updateStatus(signForm);
 		
 	}
 

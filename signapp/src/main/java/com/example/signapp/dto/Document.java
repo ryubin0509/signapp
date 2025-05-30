@@ -11,4 +11,7 @@ public class Document {
 	private String uploaderId;
 	private String uploadedTime;
 	private String uploaderName;
+	private String status;
+	
+
 }

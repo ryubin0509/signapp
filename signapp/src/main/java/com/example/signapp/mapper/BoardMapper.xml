@@ -16,7 +16,8 @@
 			d.title title,
 			d.content content,
 			d.uploaded_time uploadedTime,
-			e.name AS uploaderName
+			e.name AS uploaderName,
+			d.status status
 		FROM 
 			document d
 		JOIN
@@ -33,6 +34,7 @@
 			d.content content,
 			d.uploaded_time uploadedTime,
 			d.uploader_id uploaderId,
+			d.status status,
 			e.name AS uploaderName
 		FROM 
 			document d
@@ -49,4 +51,8 @@
 	<delete id="deleteOne" parameterType="int">
 	DELETE FROM document WHERE document_id = #{id}; 
 	</delete>
+	
+	<update id="updateStatus" parameterType="com.example.signapp.dto.SignForm">
+	UPDATE document SET status = #{signStatus}  WHERE document_Id = #{documentId};
+	</update>
 </mapper>

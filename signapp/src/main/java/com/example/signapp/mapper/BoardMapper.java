@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.example.signapp.dto.Document;
 import com.example.signapp.dto.Employee;
+import com.example.signapp.dto.SignForm;
 
 @Mapper
 public interface BoardMapper {
@@ -30,4 +31,7 @@ public interface BoardMapper {
 
 	// 게시판 삭제하기
 	int deleteOne(int id);
+
+	// 게시판 업데이트 하기
+	int updateStatus(SignForm signForm);
 }

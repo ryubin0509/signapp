@@ -23,9 +23,31 @@
 	SELECT signature_path signaturePath FROM sign WHERE document_id = #{documentId} AND sign_order = 3; 
 </select>
 
-<select id="getSignCountByDocumentId" parameterType="int" resultType="int">
+<select id="getSignCountByDocumentId" parameterType="com.example.signapp.dto.SignForm" resultType="int">
 	SELECT COUNT(*) sign_order FROM sign  WHERE document_id = #{documentId}; 
 </select>
+
+<update id="updateSignStatus" parameterType="com.example.signapp.dto.SignForm">
+	UPDATE sign SET sign_status = #{status}  signer_id = #{signerId}  WHERE documentId = #{documentId};
+</update>
+
+<insert id="insertRejectSign" parameterType="com.example.signapp.dto.SignForm" >
+INSERT INTO sign (
+    document_id,
+    signer_id,
+    sign_order,
+    signature_path,
+	sign_status
+) VALUES (
+    #{documentId},
+    #{signerId},
+    #{signOrder},
+    NULL, -- 반려 시 서명 이미지는 없으므로 NULL
+    'REJECTED' -- 또는 '반려', '거절' 등 미리 정의한 상태값
+);
+
+
+</insert>
 
 </mapper>
 

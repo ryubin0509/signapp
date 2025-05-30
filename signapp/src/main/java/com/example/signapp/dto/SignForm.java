@@ -11,4 +11,5 @@ public class SignForm {
 	private String signaturePath; // 파일 위치
 	private String signedTime; // 사인한 시간
 	private String signImg;  // Base64 이미지 전송용 
+	private String signStatus; // 사인 상태
 }

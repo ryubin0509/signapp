@@ -1,7 +1,9 @@
 package com.example.signapp.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import com.example.signapp.dto.Document;
 import com.example.signapp.dto.SignForm;
 
 @Mapper
@@ -17,6 +19,13 @@ public interface SignMapper {
 
 	String getBoardSignLevel3(int documentId); // 레벨3 이미지 파일 가져옴
 
-	int getSignCountByDocumentId(int documentId); // 결제상태 확인 카운트 
+	int getSignCountByDocumentId(Document doc); // 결제상태 확인 카운트 
+
+	
+
+	void updateSignStatus(SignForm signForm);
+
+	int insertRejectSign(SignForm signForm); // 거부 사인 넣기
+	
 
 }

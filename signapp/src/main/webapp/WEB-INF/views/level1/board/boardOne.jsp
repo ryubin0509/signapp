@@ -88,6 +88,9 @@
     <c:when test="${loginUser.level == 2 && signL2 == 0}">
     <div><a href="/signLevel3?documentId=${doc.documentId}&employeeId=${loginUser.id}&signOrder=2">과장</a></div>
     </c:when>
+    <c:when test="${doc.status eq 'REJECTED'}">
+    <div>❌반려</div>
+    </c:when>
    <c:when test="${signL2 eq 1}">
     <div>
         <img src="/upload/${file}" alt="과장사인" style="width: 60px; height: 60px;">
@@ -102,6 +105,9 @@
     <c:when test="${loginUser.level == 3 && signL2 == 1 && signL3 == 0}">
     <div><a href="/signLevel3?documentId=${doc.documentId}&employeeId=${loginUser.id}&signOrder=3">팀장</a></div>
     </c:when>
+        <c:when test="${doc.status eq 'REJECTEDS'}">
+    <div>❌반려</div>
+    </c:when> 
     <c:when test="${signL3 eq 1}">
      <div>
         <img src="/upload/${file2}" alt="팀장사인" style="width: 60px; height: 60px;">
@@ -160,15 +166,15 @@
 </a>
 
 
-  
-  <c:if test="${loginUser.id.toString()== doc.uploaderId.toString()}">
+  <c:choose>
+  <c:when test="${loginUser.id.toString()== doc.uploaderId.toString() && signL2 == 0}">
   <div class="btn-box">
     <a href="/level1/board/update?id=${doc.documentId}" class="btn btn-warning">수정</a>
     <a href="/level1/board/delete?id=${doc.documentId}" class="btn btn-danger"
        onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
   </div>
-  </c:if>
-  
+  </c:when>
+  </c:choose>
 </div>
 
 </body>

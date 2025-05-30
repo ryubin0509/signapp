@@ -115,8 +115,9 @@
  		  <td>${fn:substring(doc.uploadedTime,0,16)}</td>
    		  <td>
  		  <c:choose>
+   		  <c:when test="${doc.status eq 'REJECTED' or doc.status eq 'REJECTEDS'}">❌ 반려</c:when>
  		  <c:when test="${signCountMap[doc.documentId]>1}">  ✅ 완료 </c:when>
- 		  <c:when test="${signCOuntMap[doc.documentId]>0}">  🔄 진행중</c:when>
+ 		  <c:when test="${signCountMap[doc.documentId]>0}">  🔄 진행중</c:when>
  		  <c:otherwise>  ⏳ 대기 </c:otherwise>
  		  </c:choose>
  		  </td>

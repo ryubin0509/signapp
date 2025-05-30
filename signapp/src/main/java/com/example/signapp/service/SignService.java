@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.signapp.dto.Document;
 import com.example.signapp.dto.SignForm;
+import com.example.signapp.mapper.BoardMapper;
 import com.example.signapp.mapper.SignMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class SignService {
 	@Autowired SignMapper signMapper;
+	@Autowired BoardMapper boardMapper;
 	
 	public boolean addSign(SignForm signForm) {
 		// 0) signImg 파일이름을 생성
@@ -78,8 +81,21 @@ public class SignService {
 		return signMapper.getBoardSignLevel3(documentId);
 	}
 
-	public int getSignCountByDocumentId(int documentId) { // 결제 상태 보여주기
-		return signMapper.getSignCountByDocumentId(documentId);
+	public int getSignCountByDocumentId(Document doc) { // 결제 상태 보여주기
+		
+		return signMapper.getSignCountByDocumentId(doc);
+		
+	}
+
+	public void updateRejectSign(SignForm signForm) {
+		signMapper.updateSignStatus(signForm);
+		boardMapper.updateStatus(signForm);
+		
+	}
+
+	public void insertRejectSign(SignForm signForm) {
+		
+		signMapper.insertRejectSign(signForm);
 		
 	}
 
